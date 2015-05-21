@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Copy Ipsum</title>
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+    html {
+      font-family: 'Open Sans', sans-serif;
+    }
+    .container {
+      width: 400px;
+      margin: auto;
+    }
+    h1 {
+      text-transform: uppercase;
+    }
+    p {
+      border: solid 1px black;
+      padding: 5px;
+      border-radius: 5px;
+      color: black;
+      cursor: pointer;
+    }
+    .check {
+      border-color: black;
+      -webkit-animation-name: green-to-black;
+      -webkit-animation-duration: 4s;
+      -moz-animation-name: green-to-black;
+      -moz-animation-duration: 4s;
+      animation-name: green-to-black;
+      animation-duration: 4s;
+    }
+    @-webkit-keyframes green-to-black {
+      0% {
+        border-color: green;
+        color: green;
+      }
+      100% {
+        border-color: black;
+        color: black;
+      }
+    }
+    @keyframes green-to-black {
+      0% {
+        border-color: green;
+        color: green;
+      }
+      100% {
+        border-color: black;
+        color: black;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Copy Ipsum</h1>
+    <h2>Click to copy your lorem ipsum</h2>
+
+    <p id="xsLoremIpsum"></p>
+    <p id="smLoremIpsum"></p>
+    <p id="mdLoremIpsum"></p>
+    <p id="lgLoremIpsum"></p>
+
+    <hr />
+
+    <h2>Browser support</h2>
+    <ul>
+      <li>Chrome</li>
+      <li>Opera</li>
+      <li>Internet Explorer (after giving permission via one-time dialog)</li>
+    </ul>
+
+    <hr />
+
+    <h2>Inspired by</h2>
+    <a href="https://twitter.com/gauntface">Matt Gaunt</a>'s <a href="http://updates.html5rocks.com/2015/04/cut-and-copy-commands">article</a> on <a href="http://updates.html5rocks.com/">html5rocks.com</a>
+  </div>
+  <script>
+    var loremIpsum = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.';
+
+    var lgLoremIpsum = document.getElementById("lgLoremIpsum");
+    lgLoremIpsum.innerText = loremIpsum;
+
+    var mdLoremIpsum = document.getElementById("mdLoremIpsum");
+    mdLoremIpsum.innerText = loremIpsum.substring(0, 543);
+
+    var smLoremIpsum = document.getElementById("smLoremIpsum");
+    smLoremIpsum.innerText = loremIpsum.substring(0, 144);
+
+    var xsLoremIpsum = document.getElementById("xsLoremIpsum");
+    xsLoremIpsum.innerText = loremIpsum.substring(0, 11);
+
+    lgLoremIpsum.addEventListener('click', function(event) {
+      copy(this);
+    });
+
+    mdLoremIpsum.addEventListener('click', function(event) {
+      copy(this);
+    });
+
+    smLoremIpsum.addEventListener('click', function(event) {
+      copy(this);
+    });
+
+    xsLoremIpsum.addEventListener('click', function(event) {
+      copy(this);
+    });
+
+    function copy(value) {
+      var range = document.createRange();
+      range.selectNode(value);
+      window.getSelection().addRange(range);
+
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successfully' : 'unsuccessfully';
+        console.log('Lorem ipsum copied ' + msg);
+      } catch (err) {
+        console.log('Unable to copy');
+      }
+
+      window.getSelection().removeAllRanges();
+
+      value.className = value.className + " check";
+      setTimeout(function() {
+        value.className = "";
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
